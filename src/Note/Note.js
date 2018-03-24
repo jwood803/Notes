@@ -7,6 +7,7 @@ const note = props => {
       <p>
         {props.details}
       </p>
+      <button className="btn btn-primary" onClick={props.addNote}>Add Note</button>
     </div>
   );
 };
