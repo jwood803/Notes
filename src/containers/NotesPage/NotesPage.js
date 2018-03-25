@@ -1,12 +1,15 @@
 import React, {Component, Fragment} from "react";
 import Note from "../../components/Note/Note";
+import AddNote from "../../components/AddNote/AddNote";
+import {Button} from "react-bootstrap";
 
 class NotesPage extends Component {
   state = {
     notes: [
       {title: "Peak", details: "Great book!", rating: 5},
       {title: "Code Complete", details: "Good programming resource."}
-    ]
+    ],
+    showAddNoteModal: false
   };
 
   addNewNote = (note) => {
@@ -15,6 +18,18 @@ class NotesPage extends Component {
     notes.push(note);
 
     this.setState({notes: notes});
+  };
+
+  showModal = () => {
+    this.setState({
+      showAddNoteModal: true
+    });
+  };
+
+  hideModal = () => {
+    this.setState({
+      showAddNoteModal: false
+    });
   };
 
   render() {
@@ -29,7 +44,8 @@ class NotesPage extends Component {
 
     return (
       <Fragment>
-        <button className="btn btn-lg btn-info" onClick={() => this.addNewNote({title: "title", details: "details"})}>Add Note</button>
+        <Button bsStyle="primary" onClick={this.showModal}>Add note</Button>
+        <AddNote showModal={this.state.showAddNoteModal} closeModal={this.hideModal} />
         {notes}
       </Fragment>
     );
