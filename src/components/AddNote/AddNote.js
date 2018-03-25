@@ -4,18 +4,21 @@ import {Modal, Button} from "react-bootstrap";
 const addNote = props => {
   let {
     showModal,
-    closeModal
+    closeModal,
+    addNote
   } = props;
 
   return (
     <Modal show={showModal} onHide={closeModal}>
       <Modal.Header>
-        <Modal.Title>Modal title</Modal.Title>
+        <Modal.Title>Add New Note</Modal.Title>
       </Modal.Header>
-      <Modal.Body>One fine body...</Modal.Body>
+      <Modal.Body>
+        TODO: Add note form
+      </Modal.Body>
       <Modal.Footer>
-        <Button>Close</Button>
-        <Button bsStyle="primary">Save changes</Button>
+        <Button onClick={closeModal}>Close</Button>
+        <Button bsStyle="primary" onClick={addNote}>Save note</Button>
       </Modal.Footer>
     </Modal>
   );

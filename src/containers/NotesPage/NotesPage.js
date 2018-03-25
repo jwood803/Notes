@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from "react";
 import Note from "../../components/Note/Note";
 import AddNote from "../../components/AddNote/AddNote";
-import {Button} from "react-bootstrap";
+import {Grid, Row, Col, Button} from "react-bootstrap";
 
 class NotesPage extends Component {
   state = {
@@ -18,6 +18,8 @@ class NotesPage extends Component {
     notes.push(note);
 
     this.setState({notes: notes});
+
+    this.hideModal();
   };
 
   showModal = () => {
@@ -39,14 +41,23 @@ class NotesPage extends Component {
       notes = <p>Start adding notes!</p>
     }
     else {
-      notes = notes.map((note, idx) => <Note key={idx} title={note.title} details={note.details} rating={note.rating}/>)
+      notes = notes.map((note, idx) => {
+        return (
+          <Col xs={3}>
+            <Note key={idx} title={note.title} details={note.details} rating={note.rating}/>
+          </Col>)
+      })
     }
 
     return (
       <Fragment>
         <Button bsStyle="primary" onClick={this.showModal}>Add note</Button>
-        <AddNote showModal={this.state.showAddNoteModal} closeModal={this.hideModal} />
-        {notes}
+        <AddNote showModal={this.state.showAddNoteModal} closeModal={this.hideModal} addNote={this.addNewNote}/>
+        <Grid>
+          <Row className="show-grid">
+            {notes}
+          </Row>
+        </Grid>
       </Fragment>
     );
   }
