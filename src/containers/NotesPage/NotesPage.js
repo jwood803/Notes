@@ -44,7 +44,7 @@ class NotesPage extends Component {
     else {
       notes = notes.map((note, idx) => {
         return (
-          <Col className="card" xs={3}>
+          <Col className="card" xs={3} key={idx}>
             <Note key={idx} title={note.title} details={note.details} rating={note.rating}/>
           </Col>)
       })
@@ -52,7 +52,7 @@ class NotesPage extends Component {
 
     return (
       <Fragment>
-        <Button bsStyle="primary" onClick={this.showModal}>Add note</Button>
+        <Button style={{marginBottom: "20px"}} bsStyle="primary" onClick={this.showModal}>Add note</Button>
         <AddNote showModal={this.state.showAddNoteModal} closeModal={this.hideModal} addNote={this.addNewNote}/>
         <Grid>
           <Row className="show-grid">
