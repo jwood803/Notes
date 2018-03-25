@@ -9,6 +9,14 @@ class NotesPage extends Component {
     ]
   };
 
+  addNewNote = (note) => {
+    const notes = this.state.notes.slice();
+
+    notes.push(note);
+
+    this.setState({notes: notes});
+  };
+
   render() {
     let notes = this.state.notes.slice();
 
@@ -21,6 +29,7 @@ class NotesPage extends Component {
 
     return (
       <Fragment>
+        <button className="btn btn-lg btn-info" onClick={() => this.addNewNote({title: "title", details: "details"})}>Add Note</button>
         {notes}
       </Fragment>
     );
