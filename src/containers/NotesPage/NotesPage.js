@@ -2,6 +2,7 @@ import React, {Component, Fragment} from "react";
 import Note from "../../components/Note/Note";
 import AddNote from "../../components/AddNote/AddNote";
 import {Grid, Row, Col, Button} from "react-bootstrap";
+import "./NotesPage.css";
 
 class NotesPage extends Component {
   state = {
@@ -43,7 +44,7 @@ class NotesPage extends Component {
     else {
       notes = notes.map((note, idx) => {
         return (
-          <Col xs={3}>
+          <Col className="card" xs={3}>
             <Note key={idx} title={note.title} details={note.details} rating={note.rating}/>
           </Col>)
       })
