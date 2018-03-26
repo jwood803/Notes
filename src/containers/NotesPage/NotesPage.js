@@ -8,14 +8,18 @@ import axios from "../../utils/axios-notes";
 import Spinner from "../../UI/Spinner/Spinner";
 
 export class NotesPage extends Component {
-  componentWillUpdate() {
-    console.log("NotesPage WillUpdate")
-  }
-
   componentDidMount() {
     axios.get("/notes.json")
       .then(response => {
-        let values = Object.values(response.data)
+        let values = Object.values(response.data);
+        let keys = Object.keys(response.data);
+
+        keys.forEach((key, idx) => {
+          values[idx] = {
+            ...values[idx],
+            id: key
+          }
+        });
 
         console.log(values);
 

@@ -1,10 +1,14 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {isBlank} from "../../utils/utils";
+import axios from "../../utils/axios-notes";
 
 class Note extends Component {
   openNote = id => {
     console.log(`open note id ${id}`);
+
+    axios.get(`/notes/${id}.json`)
+      .then(response => console.log(response.data));
   };
 
   render() {
