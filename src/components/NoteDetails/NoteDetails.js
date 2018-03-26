@@ -15,7 +15,7 @@ export class NoteDetails extends Component {
   }
 
   render() {
-    let noteDetails = <p>No note found.</p>;
+    let noteDetails = <p style={{marginTop: "65px"}}>No note found.</p>;
 
     if(this.state.note) {
       noteDetails = (
