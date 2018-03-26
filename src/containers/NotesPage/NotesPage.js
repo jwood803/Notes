@@ -5,6 +5,7 @@ import {Grid, Row, Col, Button} from "react-bootstrap";
 import "./NotesPage.css";
 import {NoteDetails} from "../../components/NoteDetails/NoteDetails";
 import axios from "../../utils/axios-notes";
+import Spinner from "../../UI/Spinner/Spinner";
 
 export class NotesPage extends Component {
   componentWillUpdate() {
@@ -16,7 +17,8 @@ export class NotesPage extends Component {
       {id: 1, title: "Peak", details: "Great book!", rating: 5},
       {id: 2, title: "Code Complete", details: "Good programming resource."}
     ],
-    showAddNoteModal: false
+    showAddNoteModal: false,
+    isLoading: false
   };
 
   addNewNote = (note) => {
@@ -26,8 +28,14 @@ export class NotesPage extends Component {
       rating: note.rating
     };
 
+    this.setState({isLoading: true});
+
     axios.post("/notes.json", notes)
-      .then(response => console.log(response)) // Add new note to state
+      .then(response => {
+        console.log(response);
+
+        this.setState({isLoading: false});
+      }) // Add new note to state
       .catch(response => console.log(response));
 
     this.hideModal();
@@ -47,6 +55,7 @@ export class NotesPage extends Component {
 
   render() {
     let notes = this.state.notes.slice();
+    let spinner = <Spinner />;
 
     if(notes.length === 0) {
       notes = <p>Start adding notes!</p>
@@ -60,15 +69,22 @@ export class NotesPage extends Component {
       })
     }
 
-    return (
-      <Fragment>
-        <Button style={{marginBottom: "20px"}} bsStyle="primary" onClick={this.showModal}>Add note</Button>
-        <AddNote showModal={this.state.showAddNoteModal} closeModal={this.hideModal} addNote={this.addNewNote}/>
+    if(!this.state.isLoading) {
+      spinner = (
         <Grid>
           <Row className="show-grid">
             {notes}
           </Row>
         </Grid>
+      );
+    }
+
+    return (
+      <Fragment>
+        <Button style={{marginBottom: "20px"}} bsStyle="primary" onClick={this.showModal}>Add note</Button>
+        <AddNote showModal={this.state.showAddNoteModal} closeModal={this.hideModal} addNote={this.addNewNote}/>
+        {spinner}
+
         <NoteDetails />
       </Fragment>
     );
