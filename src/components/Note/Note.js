@@ -1,9 +1,14 @@
-import React, {Component, Fragment} from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {isBlank} from "../../utils/utils";
 
 class Note extends Component {
+  openNote = id => {
+    console.log(`open note id ${id}`);
+  };
+
   render() {
+    const note = this.props.note;
     let rating = <p>No rating</p>;
 
     if(!isBlank(this.props.rating)) {
@@ -11,19 +16,17 @@ class Note extends Component {
     }
 
     return (
-      <Fragment>
-        <h2>{this.props.title}</h2>
+      <article onClick={() => this.openNote(note.id)}>
+        <h2>{note.title}</h2>
         {rating}
-        <p>{this.props.details}</p>
-      </Fragment>
+        <p>{note.details}</p>
+      </article>
     );
   }
 }
 
 Note.propTypes = {
-  title: PropTypes.string.isRequired,
-  details: PropTypes.string.isRequired,
-  rating: PropTypes.number
+  note: PropTypes.object.isRequired
 };
 
 export default Note;

@@ -3,6 +3,7 @@ import Note from "../../components/Note/Note";
 import AddNote from "../../components/AddNote/AddNote";
 import {Grid, Row, Col, Button} from "react-bootstrap";
 import "./NotesPage.css";
+import {NoteDetails} from "../../components/NoteDetails/NoteDetails";
 
 export class NotesPage extends Component {
   componentWillUpdate() {
@@ -11,8 +12,8 @@ export class NotesPage extends Component {
 
   state = {
     notes: [
-      {title: "Peak", details: "Great book!", rating: 5},
-      {title: "Code Complete", details: "Good pro`gramming resource."}
+      {id: 1, title: "Peak", details: "Great book!", rating: 5},
+      {id: 2, title: "Code Complete", details: "Good pro`gramming resource."}
     ],
     showAddNoteModal: false
   };
@@ -49,7 +50,7 @@ export class NotesPage extends Component {
       notes = notes.map((note, idx) => {
         return (
           <Col className="card" xs={3} key={idx}>
-            <Note key={idx} title={note.title} details={note.details} rating={note.rating}/>
+            <Note key={idx} note={note} />
           </Col>)
       })
     }
@@ -63,6 +64,7 @@ export class NotesPage extends Component {
             {notes}
           </Row>
         </Grid>
+        <NoteDetails />
       </Fragment>
     );
   }
