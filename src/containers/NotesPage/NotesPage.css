@@ -2,3 +2,7 @@
     border: 1px solid #b2b5b3;
     margin: 10px;
 }
+
+.card:hover {
+    background: lightgray;
+}

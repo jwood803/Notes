@@ -21,8 +21,6 @@ export class NotesPage extends Component {
           }
         });
 
-        console.log(values);
-
         this.setState({notes: values});
       })
       .catch(response => console.log(response));
