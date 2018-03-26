@@ -4,6 +4,7 @@ import AddNote from "../../components/AddNote/AddNote";
 import {Grid, Row, Col, Button} from "react-bootstrap";
 import "./NotesPage.css";
 import {NoteDetails} from "../../components/NoteDetails/NoteDetails";
+import axios from "../../utils/axios-notes";
 
 export class NotesPage extends Component {
   componentWillUpdate() {
@@ -13,17 +14,21 @@ export class NotesPage extends Component {
   state = {
     notes: [
       {id: 1, title: "Peak", details: "Great book!", rating: 5},
-      {id: 2, title: "Code Complete", details: "Good pro`gramming resource."}
+      {id: 2, title: "Code Complete", details: "Good programming resource."}
     ],
     showAddNoteModal: false
   };
 
   addNewNote = (note) => {
-    const notes = this.state.notes.slice();
+    const notes = {
+      title: note.title,
+      details: note.details,
+      rating: note.rating
+    };
 
-    notes.push(note);
-
-    this.setState({notes: notes});
+    axios.post("/notes.json", notes)
+      .then(response => console.log(response)) // Add new note to state
+      .catch(response => console.log(response));
 
     this.hideModal();
   };
