@@ -3,12 +3,13 @@ import Note from "../../components/Note/Note";
 import AddNote from "../../components/AddNote/AddNote";
 import {Grid, Row, Col, Button} from "react-bootstrap";
 import "./NotesPage.css";
-import {NoteDetails} from "../../components/NoteDetails/NoteDetails";
 import axios from "../../utils/axios-notes";
 import Spinner from "../../UI/Spinner/Spinner";
 
 export class NotesPage extends Component {
   componentDidMount() {
+    this.setState({isLoading: true});
+
     axios.get("/notes.json")
       .then(response => {
         let values = Object.values(response.data);
@@ -21,7 +22,7 @@ export class NotesPage extends Component {
           }
         });
 
-        this.setState({notes: values});
+        this.setState({isLoading: false, notes: values});
       })
       .catch(response => console.log(response));
   }
@@ -91,10 +92,9 @@ export class NotesPage extends Component {
 
     return (
       <Fragment>
-        <Button style={{marginBottom: "20px"}} bsStyle="primary" onClick={this.showModal}>Add note</Button>
+        <Button style={{marginBottom: "20px", marginTop: "55px"}} bsStyle="primary" onClick={this.showModal}>Add note</Button>
         <AddNote showModal={this.state.showAddNoteModal} closeModal={this.hideModal} addNote={this.addNewNote}/>
         {noteSummary}
-        <NoteDetails />
       </Fragment>
     );
   }

@@ -5,7 +5,7 @@ import NotesLogo from "../../../assets/logo.png";
 class Toolbar extends Component {
   render() {
     return (
-      <Navbar>
+      <Navbar fixedTop>
         <Navbar.Header>
           <Navbar.Brand>
             <Image src={NotesLogo} />
