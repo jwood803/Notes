@@ -18,7 +18,7 @@ const addNote = props => {
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={closeModal}>Close</Button>
-        <Button bsStyle="primary" onClick={addNote}>Save note</Button>
+        <Button bsStyle="primary" onClick={() => addNote({title: "New title", details: "New details", rating: 3})}>Save note</Button>
       </Modal.Footer>
     </Modal>
   );

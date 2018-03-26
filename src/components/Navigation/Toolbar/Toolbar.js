@@ -13,12 +13,15 @@ class Toolbar extends Component {
         </Navbar.Header>
         <Nav>
           <NavItem eventKey={1} href="/">
-            Link
+            Home
           </NavItem>
         </Nav>
         <Nav pullRight>
           <NavItem eventKey={2} href="/">
-            Link
+            Favorites
+          </NavItem>
+          <NavItem eventKey={3} href="/">
+            Profile
           </NavItem>
         </Nav>
       </Navbar>

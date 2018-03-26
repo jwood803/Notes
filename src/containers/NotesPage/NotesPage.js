@@ -28,13 +28,16 @@ export class NotesPage extends Component {
       rating: note.rating
     };
 
-    this.setState({isLoading: true});
+    const updatedNotes = this.state.notes.slice();
+    updatedNotes.push({...notes});
+
+    this.setState({isLoading: true, notes: updatedNotes});
 
     axios.post("/notes.json", notes)
       .then(response => {
         console.log(response);
 
-        this.setState({isLoading: false});
+        this.setState({isLoading: false, });
       }) // Add new note to state
       .catch(response => console.log(response));
 
@@ -55,7 +58,7 @@ export class NotesPage extends Component {
 
   render() {
     let notes = this.state.notes.slice();
-    let spinner = <Spinner />;
+    let noteSummary = <Spinner />;
 
     if(notes.length === 0) {
       notes = <p>Start adding notes!</p>
@@ -70,7 +73,7 @@ export class NotesPage extends Component {
     }
 
     if(!this.state.isLoading) {
-      spinner = (
+      noteSummary = (
         <Grid>
           <Row className="show-grid">
             {notes}
@@ -83,8 +86,7 @@ export class NotesPage extends Component {
       <Fragment>
         <Button style={{marginBottom: "20px"}} bsStyle="primary" onClick={this.showModal}>Add note</Button>
         <AddNote showModal={this.state.showAddNoteModal} closeModal={this.hideModal} addNote={this.addNewNote}/>
-        {spinner}
-
+        {noteSummary}
         <NoteDetails />
       </Fragment>
     );
