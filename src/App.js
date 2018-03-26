@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Layout from "./components/Layout/Layout";
-import NotesPage from "./containers/NotesPage/NotesPage";
+import {NotesPage} from "./containers/NotesPage/NotesPage";
 
 class App extends Component {
   render() {

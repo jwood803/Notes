@@ -4,7 +4,7 @@ import {isBlank} from "../../utils/utils";
 
 class Note extends Component {
   render() {
-    let rating = null;
+    let rating = <p>No rating</p>;
 
     if(!isBlank(this.props.rating)) {
       rating = <p>Has a rating of {this.props.rating}</p>

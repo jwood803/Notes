@@ -4,11 +4,15 @@ import AddNote from "../../components/AddNote/AddNote";
 import {Grid, Row, Col, Button} from "react-bootstrap";
 import "./NotesPage.css";
 
-class NotesPage extends Component {
+export class NotesPage extends Component {
+  componentWillUpdate() {
+    console.log("NotesPage WillUpdate")
+  }
+
   state = {
     notes: [
       {title: "Peak", details: "Great book!", rating: 5},
-      {title: "Code Complete", details: "Good programming resource."}
+      {title: "Code Complete", details: "Good pro`gramming resource."}
     ],
     showAddNoteModal: false
   };
@@ -63,5 +67,3 @@ class NotesPage extends Component {
     );
   }
 }
-
-export default NotesPage;
