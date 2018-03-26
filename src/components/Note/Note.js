@@ -17,7 +17,7 @@ class Note extends Component {
 
     return (
       <article onClick={() => this.openNote(note.id)}>
-        <h2>{note.title}</h2>
+        <h3>{note.title}</h3>
         {rating}
         <p>{note.details}</p>
       </article>

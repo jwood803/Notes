@@ -12,11 +12,20 @@ export class NotesPage extends Component {
     console.log("NotesPage WillUpdate")
   }
 
+  componentDidMount() {
+    axios.get("/notes.json")
+      .then(response => {
+        let values = Object.values(response.data)
+
+        console.log(values);
+
+        this.setState({notes: values});
+      })
+      .catch(response => console.log(response));
+  }
+
   state = {
-    notes: [
-      {id: 1, title: "Peak", details: "Great book!", rating: 5},
-      {id: 2, title: "Code Complete", details: "Good programming resource."}
-    ],
+    notes: [],
     showAddNoteModal: false,
     isLoading: false
   };
@@ -34,11 +43,7 @@ export class NotesPage extends Component {
     this.setState({isLoading: true, notes: updatedNotes});
 
     axios.post("/notes.json", notes)
-      .then(response => {
-        console.log(response);
-
-        this.setState({isLoading: false, });
-      }) // Add new note to state
+      .then(_ => this.setState({isLoading: false, })) // Add new note to state
       .catch(response => console.log(response));
 
     this.hideModal();
@@ -66,7 +71,7 @@ export class NotesPage extends Component {
     else {
       notes = notes.map((note, idx) => {
         return (
-          <Col className="card" xs={3} key={idx}>
+          <Col className="card" xs={3} xsPush={1} key={idx}>
             <Note key={idx} note={note} />
           </Col>)
       })
