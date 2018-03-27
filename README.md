@@ -13,5 +13,6 @@ React items used:
 - [x] Forms
   - [ ] Form validation
 - [ ] Redux
+- [ ] Authentication
 - [ ] Tests
 - [ ] Deployment
