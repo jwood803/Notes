@@ -29,12 +29,10 @@ export class NoteDetails extends Component {
     if(this.state.note) {
       noteDetails = (
         <section className="pull-down">
+          <Link to={`${this.props.match.params.id}/edit`}>
+            Edit
+          </Link>
           <h1>{this.state.note.title}</h1>
-          <span>
-            <Link to={`${this.props.match.params.id}/edit`}>
-              Edit
-            </Link>
-          </span>
           <p>{this.state.note.details}</p>
           <p>{this.state.note.rating}</p>
         </section>

@@ -6,7 +6,7 @@ import "./NotesPage.css";
 import axios from "../../utils/axios-notes";
 import Spinner from "../../UI/Spinner/Spinner";
 
-export class NotesPage extends Component {
+export class Notes extends Component {
   componentDidMount() {
     this.setState({isLoading: true});
 
