@@ -30,7 +30,7 @@ export class Notes extends Component {
       });
   }
 
-gi  state = {
+  state = {
     notes: [],
     showAddNoteModal: false,
     isLoading: false
