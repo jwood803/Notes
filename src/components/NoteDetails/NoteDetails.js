@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from "react";
 import axios from "../../utils/axios-notes";
 import Spinner from "../../UI/Spinner/Spinner";
-import {Link} from "react-router-dom";
 import DeleteNote from "../Modals/DeleteNote/DeleteNote";
 import {Button} from "react-bootstrap";
 
@@ -51,6 +50,10 @@ export class NoteDetails extends Component {
     }
   };
 
+  goToEditPage = () => {
+    this.props.history.push(`${this.props.match.params.id}/edit`);
+  };
+
   render() {
     let noteDetails = <p className="pull-down">No note found.</p>;
     let page = <Spinner />;
@@ -66,9 +69,9 @@ export class NoteDetails extends Component {
             id={this.props.match.params.id}
           />
           <div style={{textAlign: "center"}}>
-            <Link style={{marginRight: "10px"}} to={`${this.props.match.params.id}/edit`}>
+            <Button onClick={this.goToEditPage}>
               Edit
-            </Link>
+            </Button>
             <Button onClick={this.showModal}>
               Delete
             </Button>
