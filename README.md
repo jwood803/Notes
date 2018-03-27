@@ -10,7 +10,8 @@ React items used:
 - [x] [React Bootstrap](https://react-bootstrap.github.io)
 - [x] HTTP requests to Firebase using [Axios](https://github.com/axios/axios)
 - [x] Routing
-- [ ] Forms and form validation
+- [x] Forms
+  - [ ] Form validation
 - [ ] Redux
 - [ ] Tests
 - [ ] Deployment
