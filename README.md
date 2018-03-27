@@ -7,9 +7,10 @@ Project to learn different aspects of React.
 React items used:
 
 - [x] Core React and JSX
-- [x] [React Bootstrap]()
-- [x] HTTP requests to Firebase using [Axios]()
+- [x] [React Bootstrap](https://react-bootstrap.github.io)
+- [x] HTTP requests to Firebase using [Axios](https://github.com/axios/axios)
 - [x] Routing
 - [ ] Forms and form validation
 - [ ] Redux
+- [ ] Tests
 - [ ] Deployment
