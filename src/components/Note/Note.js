@@ -1,9 +1,13 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {isBlank} from "../../utils/utils";
-import {Link} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 
 class Note extends Component {
+  articleClick = id => {
+    this.props.history.push(`notes/${id}`);
+  };
+
   render() {
     const note = this.props.note;
     let rating = <p>No rating</p>;
@@ -13,13 +17,11 @@ class Note extends Component {
     }
 
     return (
-      <Link to={`/notes/${note.id}`}>
-        <article>
-          <h3>{note.title}</h3>
-          {rating}
-          <p>{note.details}</p>
-        </article>
-      </Link>
+      <article onClick={() => this.articleClick(note.id)}>
+        <h3>{note.title}</h3>
+        {rating}
+        <p>{note.details}</p>
+      </article>
     );
   }
 }
@@ -28,4 +30,4 @@ Note.propTypes = {
   note: PropTypes.object.isRequired
 };
 
-export default Note;
+export default withRouter(Note);
