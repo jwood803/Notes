@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from "react";
 import Note from "../../components/Note/Note";
-import AddNote from "../../components/Modals/AddNote/AddNote";
+import {AddNote} from "../../components/Modals/AddNote/AddNote";
 import {Grid, Row, Col, Button} from "react-bootstrap";
 import "./NotesPage.css";
 import axios from "../../utils/axios-notes";
