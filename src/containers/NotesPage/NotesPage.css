@@ -6,3 +6,8 @@
 .card:hover {
     background: lightgray;
 }
+
+.align-button {
+    margin-top: 65px;
+    margin-bottom: 20px;
+}

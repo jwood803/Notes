@@ -47,7 +47,11 @@ export class NotesPage extends Component {
 
     axios.post("/notes.json", notes)
       .then(_ => this.setState({isLoading: false, })) // Add new note to state
-      .catch(response => console.log(response));
+      .catch(response => {
+        console.log(response);
+
+        this.setState({isLoading: false})
+      });
 
     this.hideModal();
   };
@@ -92,7 +96,7 @@ export class NotesPage extends Component {
 
     return (
       <Fragment>
-        <Button style={{marginBottom: "20px", marginTop: "55px"}} bsStyle="primary" onClick={this.showModal}>Add note</Button>
+        <Button className="align-button" bsStyle="primary" onClick={this.showModal}>Add note</Button>
         <AddNote showModal={this.state.showAddNoteModal} closeModal={this.hideModal} addNote={this.addNewNote}/>
         {noteSummary}
       </Fragment>
