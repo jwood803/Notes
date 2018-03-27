@@ -21,11 +21,14 @@ const addNote = props => {
         <ControlLabel>Note Details</ControlLabel>
         <FormControl componentClass="textarea" placeholder="Enter text" />
       </FormGroup>
+      <FormGroup style={{marginBottom: "0px"}}>
+        <ControlLabel>Book rating</ControlLabel>
+      </FormGroup>
       <FormGroup>
         {
           _times(RATING_COUNT, cnt => {
             return (
-            <Radio key={cnt} name="radioGroup" inline>
+            <Radio key={cnt} name="radioGroup" inline checked={cnt === 0}>
               {cnt + 1}
             </Radio>)
           })
