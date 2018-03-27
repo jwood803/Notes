@@ -28,7 +28,11 @@ export class AddNote extends Component {
       <Form>
         <FormGroup controlId="title">
           <ControlLabel>Book Title</ControlLabel>
-          <FormControl type="text" placeholder="Enter text" onChange={this.titleOnChange}/>
+          <FormControl
+            type="text"
+            placeholder="Enter text"
+            onChange={this.titleOnChange}
+            inputRef={input => input && input.focus() }/>
         </FormGroup>
         <FormGroup controlId="noteDetails">
           <ControlLabel>Note Details</ControlLabel>

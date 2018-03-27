@@ -44,6 +44,8 @@ export class NoteDetails extends Component {
         })
         .catch(_ => this.setState({isLoading: false}));
 
+      setTimeout(() => console.log("Timout"), 500);
+
       this.hideModal();
 
       this.props.history.push("/");
