@@ -24,7 +24,10 @@ export class Notes extends Component {
 
         this.setState({isLoading: false, notes: values});
       })
-      .catch(response => console.log(response));
+      .catch(response => {
+        console.log(response);
+        this.setState({isLoading: false});
+      });
   }
 
   state = {

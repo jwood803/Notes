@@ -11,32 +11,21 @@ const addNote = props => {
 
   const RATING_COUNT = 5;
 
-  let FieldGroup = ({ id, label, help, ...props }) => {
-    return (
-      <FormGroup controlId={id}>
-        <ControlLabel>{label}</ControlLabel>
-        <FormControl {...props} />
-      </FormGroup>
-    );
-  };
-
   let form = (
     <Form>
-      <FieldGroup
-        id="title"
-        type="text"
-        label="Book Title"
-        placeholder="Enter text"
-      />
+      <FormGroup controlId="title">
+        <ControlLabel>Book Title</ControlLabel>
+        <FormControl type="text" placeholder="Enter text"/>
+      </FormGroup>
       <FormGroup controlId="noteDetails">
         <ControlLabel>Note Details</ControlLabel>
-        <FormControl componentClass="textarea" placeholder="textarea" />
+        <FormControl componentClass="textarea" placeholder="Enter text" />
       </FormGroup>
       <FormGroup>
         {
           _times(RATING_COUNT, cnt => {
             return (
-            <Radio name="radioGroup" inline>
+            <Radio key={cnt} name="radioGroup" inline>
               {cnt + 1}
             </Radio>)
           })
