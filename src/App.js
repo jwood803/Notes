@@ -4,7 +4,6 @@ import Layout from "./components/Layout/Layout";
 import {Notes} from "./containers/Notes/Notes";
 import {NoteDetails} from "./components/NoteDetails/NoteDetails";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {EditNote} from "./components/EditNote/EditNote";
 
 class App extends Component {
   render() {
@@ -14,7 +13,6 @@ class App extends Component {
           <Layout>
             <Switch>
               <Route path="/" exact component={Notes}/>
-              <Route path="/notes/:id/edit" exact component={EditNote} />
               <Route path="/notes/:id" exact component={NoteDetails} />
             </Switch>
           </Layout>

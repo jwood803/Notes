@@ -3,19 +3,21 @@ import axios from "../../utils/axios-notes";
 import Spinner from "../../UI/Spinner/Spinner";
 import DeleteNote from "../Modals/DeleteNote/DeleteNote";
 import {Button} from "react-bootstrap";
+import {EditNote} from "../Modals/EditNote/EditNote";
 
 export class NoteDetails extends Component {
   state = {
     note: null,
     isLoading: false,
     showDeleteNoteModal: false,
+    showEditNoteModal: false,
     id: null
   };
 
   componentDidMount() {
     const id = this.props.match.params.id;
 
-    this.setState({isLoading: true});
+    this.setState({isLoading: true, id: id});
 
     axios.get(`/notes/${id}.json`)
       .then(response => this.setState({note: response.data, isLoading: false}))
@@ -25,12 +27,12 @@ export class NoteDetails extends Component {
       });
   }
 
-  showModal = () => {
+  showDeleteModal = () => {
     this.setState({showDeleteNoteModal: true, id: this.props.match.params.id});
   };
 
   hideModal = () => {
-    this.setState({showDeleteNoteModal: false});
+    this.setState({showDeleteNoteModal: false, showEditNoteModal: false});
   };
 
   deleteNote = (id) => {
@@ -44,16 +46,28 @@ export class NoteDetails extends Component {
         })
         .catch(_ => this.setState({isLoading: false}));
 
-      setTimeout(() => console.log("Timout"), 500);
-
       this.hideModal();
 
       this.props.history.push("/");
     }
   };
 
-  goToEditPage = () => {
-    this.props.history.push(`${this.props.match.params.id}/edit`);
+  showEditModal = () => {
+    this.setState({showEditNoteModal: true});
+  };
+
+  updateNote = updatedNote => {
+    const id = this.state.id;
+
+    this.setState({isLoading: true});
+
+    axios.put(`/notes/${id}.json`, updatedNote)
+      .then(response => console.log(response.data))
+      .catch(response => console.log(response.data))
+
+    this.setState({isLoading: false});
+
+    this.hideModal();
   };
 
   render() {
@@ -70,13 +84,15 @@ export class NoteDetails extends Component {
             title={this.state.note.title}
             id={this.props.match.params.id}
           />
+          <EditNote
+            showModal={this.state.showEditNoteModal}
+            closeModal={this.hideModal}
+            updateNote={this.updateNote}
+            note={this.state.note}
+          />
           <div style={{textAlign: "center"}}>
-            <Button onClick={this.goToEditPage}>
-              Edit
-            </Button>
-            <Button onClick={this.showModal}>
-              Delete
-            </Button>
+            <Button onClick={this.showEditModal}>Edit</Button>
+            <Button onClick={this.showDeleteModal}>Delete</Button>
           </div>
           <h1>{this.state.note.title}</h1>
           <p>{this.state.note.details}</p>

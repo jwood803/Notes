@@ -1,8 +1,17 @@
 import React, {Component} from "react";
-import {Modal, Button, Form, FormGroup, ControlLabel, FormControl, Radio, Checkbox} from "react-bootstrap";
+import {
+  ControlLabel,
+  Form,
+  FormControl,
+  FormGroup,
+  Radio,
+  Modal,
+  Button, Checkbox
+} from "react-bootstrap";
+import "./EditNote.css";
 import _times from "lodash/times";
 
-export class AddNote extends Component {
+export class EditNote extends Component {
   state = {
     title: "",
     details: "",
@@ -10,7 +19,23 @@ export class AddNote extends Component {
     favorite: false
   };
 
-  titleOnChange = e => this.setState({title: e.target.value});
+  componentDidMount() {
+    const note = this.props.note;
+
+    if(note) {
+      this.setState({
+        title: note.title,
+        details: note.details,
+        rating: note.rating,
+        favorite: note.favorite
+      });
+    }
+  }
+
+  titleOnChange = e => {
+    this.setState({title: e.target.value});
+  };
+
   detailsOnChange = e => this.setState({details: e.target.value});
   ratingOnChange = e => this.setState({rating: e.target.value});
   favoriteOnChange = e => this.setState({favorite: e.target.checked});
@@ -19,7 +44,7 @@ export class AddNote extends Component {
     let {
       showModal,
       closeModal,
-      addNote
+      updateNote,
     } = this.props;
 
     const RATING_COUNT = 5;
@@ -27,15 +52,18 @@ export class AddNote extends Component {
     let form = (
       <Form>
         <FormGroup controlId="title">
-          <ControlLabel>Book Title</ControlLabel>
+          <ControlLabel>Title</ControlLabel>
           <FormControl
             type="text"
-            placeholder="Enter text"
+            value={this.state && this.state.title}
             onChange={this.titleOnChange}/>
         </FormGroup>
-        <FormGroup controlId="noteDetails">
-          <ControlLabel>Note Details</ControlLabel>
-          <FormControl componentClass="textarea" placeholder="Enter text" onChange={this.detailsOnChange} />
+        <FormGroup controlId="details">
+          <ControlLabel>Details</ControlLabel>
+          <FormControl
+            componentClass="textarea"
+            value={this.state && this.state.details}
+            onChange={this.detailsOnChange}/>
         </FormGroup>
         <FormGroup style={{marginBottom: "0px"}}>
           <ControlLabel>Book rating</ControlLabel>
@@ -51,13 +79,15 @@ export class AddNote extends Component {
                   key={cnt}
                   name="rating"
                   inline
-                  checked={this.state.rating === count.toString()}
+                  checked={this.state && this.state.rating === count.toString()}
                   onChange={this.ratingOnChange}>{count}
                 </Radio>)
             })
           }
         </FormGroup>
-        <Checkbox onChange={this.favoriteOnChange}>
+        <Checkbox
+          onChange={this.favoriteOnChange}
+          checked={this.state && this.state.favorite}>
           Favorite?
         </Checkbox>
       </Form>
@@ -70,14 +100,14 @@ export class AddNote extends Component {
     return (
       <Modal show={showModal} onHide={closeModal}>
         <Modal.Header>
-          <Modal.Title>Add New Note</Modal.Title>
+          <Modal.Title>Edit Note</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {form}
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeModal}>Close</Button>
-          <Button bsStyle="primary" onClick={() => addNote(note)}>Save note</Button>
+          <Button bsStyle="primary" onClick={() => updateNote(note)}>Update note</Button>
         </Modal.Footer>
       </Modal>
     );
