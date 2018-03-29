@@ -4,7 +4,7 @@ import Spinner from "../../UI/Spinner/Spinner";
 import DeleteNote from "../Modals/DeleteNote/DeleteNote";
 import {Button} from "react-bootstrap";
 import {EditNote} from "../Modals/EditNote/EditNote";
-import {deleteNote, editNote} from "../../store/actions/notesAction";
+import {deleteNote, editNote, getNoteById, getNotes} from "../../store/actions/notesAction";
 import {connect} from "react-redux";
 
 class NoteDetails extends Component {
@@ -19,14 +19,9 @@ class NoteDetails extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
 
-    this.setState({isLoading: true, id: id});
+    //this.setState({isLoading: true, id: id});
 
-    axios.get(`/notes/${id}.json`)
-      .then(response => this.setState({note: response.data, isLoading: false}))
-      .catch(response => {
-        console.log(response);
-        this.setState({isLoading: false});
-      });
+    this.props.onGetNoteDetails(id);
   }
 
   showDeleteModal = () => {
@@ -69,29 +64,29 @@ class NoteDetails extends Component {
     let noteDetails = <p className="pull-down">No note found.</p>;
     let page = <Spinner/>;
 
-    if (this.state.note) {
+    if (this.props.note) {
       noteDetails = (
         <section className="pull-down">
           <DeleteNote
             showModal={this.state.showDeleteNoteModal}
             closeModal={this.hideModal}
             deleteNote={this.deleteNote}
-            title={this.state.note.title}
+            title={this.props.note.title}
             id={this.props.match.params.id}
           />
           <EditNote
             showModal={this.state.showEditNoteModal}
             closeModal={this.hideModal}
             updateNote={this.updateNote}
-            note={this.state.note}
+            note={this.props.note}
           />
           <div style={{textAlign: "center"}}>
             <Button onClick={this.showEditModal}>Edit</Button>
             <Button onClick={this.showDeleteModal}>Delete</Button>
           </div>
-          <h1>{this.state.note.title}</h1>
-          <p>{this.state.note.details}</p>
-          <p>{this.state.note.rating}</p>
+          <h1>{this.props.note.title}</h1>
+          <p>{this.props.note.details}</p>
+          <p>{this.props.note.rating}</p>
         </section>
       );
     }
@@ -108,11 +103,18 @@ class NoteDetails extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
   return {
-    onEditNote: (id, note) => dispatch(editNote(id, note)),
-    onDeleteNote: id => dispatch(deleteNote(id))
+    note: state.noteDetails
   }
 };
 
-export default connect(null, mapDispatchToProps)(NoteDetails)
+const mapDispatchToProps = dispatch => {
+  return {
+    onEditNote: (id, note) => dispatch(editNote(id, note)),
+    onDeleteNote: id => dispatch(deleteNote(id)),
+    onGetNoteDetails: id => dispatch(getNoteById(id)),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NoteDetails)

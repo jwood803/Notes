@@ -1,5 +1,6 @@
 import {
   GET_NOTES,
+  GET_NOTE_BY_ID,
   NOTES_FAILED,
   ADD_NOTE,
   EDIT_NOTE,
@@ -30,6 +31,13 @@ const updateNote = () => {
 const deleteNoteById = () => {
   return {
     type: DELETE_NOTE
+  }
+};
+
+const getNoteFromId = noteDetails => {
+  return {
+    type: GET_NOTE_BY_ID,
+    noteDetails
   }
 };
 
@@ -74,8 +82,16 @@ export const editNote = (id, note) => {
 export const deleteNote = id => {
   return dispatch => {
     axios.delete(`/notes/${id}.json`)
-      .then(response => dispatch(deleteNoteById(id)))
-      .catch(_ => dispatch(notesFailed()));
+      .then(() => dispatch(deleteNoteById(id)))
+      .catch(() => dispatch(notesFailed()));
+  }
+};
+
+export const getNoteById = id => {
+  return dispatch => {
+    axios.get(`/notes/${id}.json`)
+      .then(response => dispatch(getNoteFromId(response.data)))
+      .catch(() => dispatch(notesFailed()));
   }
 };
 

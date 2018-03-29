@@ -2,7 +2,8 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   notes: [],
-  error: false
+  error: false,
+  note: null
 };
 
 const noteReducer = (state = initialState, action) => {
@@ -11,6 +12,12 @@ const noteReducer = (state = initialState, action) => {
       return {
         ...state,
         notes: action.notes,
+        error: false
+      };
+    case actionTypes.GET_NOTE_BY_ID:
+      return {
+        ...state,
+        noteDetails: action.noteDetails,
         error: false
       };
     case actionTypes.NOTES_FAILED:
