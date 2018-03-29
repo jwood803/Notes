@@ -1,10 +1,9 @@
 import React, {Component, Fragment} from "react";
-import axios from "../../utils/axios-notes";
 import Spinner from "../../UI/Spinner/Spinner";
 import DeleteNote from "../Modals/DeleteNote/DeleteNote";
 import {Button} from "react-bootstrap";
 import {EditNote} from "../Modals/EditNote/EditNote";
-import {deleteNote, editNote, getNoteById, getNotes} from "../../store/actions/notesAction";
+import {deleteNote, editNote, getNoteById} from "../../store/actions/notesAction";
 import {connect} from "react-redux";
 
 class NoteDetails extends Component {
@@ -18,8 +17,6 @@ class NoteDetails extends Component {
 
   componentDidMount() {
     const id = this.props.match.params.id;
-
-    //this.setState({isLoading: true, id: id});
 
     this.props.onGetNoteDetails(id);
   }

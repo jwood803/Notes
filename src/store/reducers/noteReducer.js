@@ -16,7 +16,7 @@ const noteReducer = (state = initialState, action) => {
         isLoading: false,
         error: false,
       };
-    case actionTypes.GET_NOTES_START:
+    case actionTypes.LOADING_START:
       return {
         ...state,
         isLoading: true,
@@ -25,7 +25,8 @@ const noteReducer = (state = initialState, action) => {
       return {
         ...state,
         noteDetails: action.noteDetails,
-        error: false
+        error: false,
+        isLoading: false,
       };
     case actionTypes.NOTES_FAILED:
       return {
@@ -37,17 +38,20 @@ const noteReducer = (state = initialState, action) => {
       return {
         ...state,
         newNote: action.newNote,
-        error: false
+        error: false,
+        isLoading: false,
       };
     case actionTypes.EDIT_NOTE:
       return {
         ...state,
-        error: false
+        error: false,
+        isLoading: false,
       };
     case actionTypes.DELETE_NOTE:
       return {
         ...state,
-        error: false
+        error: false,
+        isLoading: false,
       };
 
     default:

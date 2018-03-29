@@ -5,7 +5,7 @@ import {
   ADD_NOTE,
   EDIT_NOTE,
   DELETE_NOTE,
-  GET_NOTES_START
+  LOADING_START
 } from "./actionTypes";
 import axios from "../../utils/axios-notes";
 
@@ -42,15 +42,15 @@ const getNoteFromId = noteDetails => {
   }
 };
 
-const getNotesStart = () => {
+const loadingStart = () => {
   return {
-    type: GET_NOTES_START
+    type: LOADING_START
   }
 };
 
 export const getNotes = () => {
   return dispatch => {
-    dispatch(getNotesStart());
+    dispatch(loadingStart());
 
     axios.get("/notes.json")
       .then(response => {
@@ -74,6 +74,8 @@ export const getNotes = () => {
 
 export const addNote = note => {
   return dispatch => {
+    dispatch(loadingStart());
+
     axios.post("/notes.json", note)
       .then(() => dispatch(setNewNote(note)))
       .catch(() => dispatch(notesFailed()));
@@ -82,6 +84,8 @@ export const addNote = note => {
 
 export const editNote = (id, note) => {
   return dispatch => {
+    dispatch(loadingStart());
+
     axios.put(`/notes/${id}.json`, note)
       .then(() => dispatch(updateNote()))
       .catch(() => dispatch(notesFailed()));
@@ -90,6 +94,8 @@ export const editNote = (id, note) => {
 
 export const deleteNote = id => {
   return dispatch => {
+    dispatch(loadingStart());
+
     axios.delete(`/notes/${id}.json`)
       .then(() => dispatch(deleteNoteById(id)))
       .catch(() => dispatch(notesFailed()));
@@ -98,6 +104,8 @@ export const deleteNote = id => {
 
 export const getNoteById = id => {
   return dispatch => {
+    dispatch(loadingStart());
+
     axios.get(`/notes/${id}.json`)
       .then(response => dispatch(getNoteFromId(response.data)))
       .catch(() => dispatch(notesFailed()));
