@@ -16,3 +16,4 @@ React items used:
 - [ ] Authentication
 - [ ] Tests
 - [ ] Deployment
+- [ ] Continuous Integration on VSTS?

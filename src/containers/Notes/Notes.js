@@ -5,8 +5,9 @@ import {Grid, Row, Col, Button} from "react-bootstrap";
 import "./NotesPage.css";
 import axios from "../../utils/axios-notes";
 import Spinner from "../../UI/Spinner/Spinner";
+import {connect} from "react-redux";
 
-export class Notes extends Component {
+class Notes extends Component {
   componentDidMount() {
     this.setState({isLoading: true});
 
@@ -22,7 +23,7 @@ export class Notes extends Component {
           }
         });
 
-        this.setState({isLoading: false, notes: values});
+        this.setState({isLoading: false});
       })
       .catch(response => {
         console.log(response);
@@ -31,7 +32,6 @@ export class Notes extends Component {
   }
 
   state = {
-    notes: [],
     showAddNoteModal: false,
     isLoading: false
   };
@@ -72,7 +72,7 @@ export class Notes extends Component {
   };
 
   render() {
-    let notes = this.state.notes.slice();
+    let notes = this.props.notes.slice();
     let noteSummary = <Spinner />;
 
     if(notes.length === 0) {
@@ -106,3 +106,15 @@ export class Notes extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    notes: state.notes
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notes)

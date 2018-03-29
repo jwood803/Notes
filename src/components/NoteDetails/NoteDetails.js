@@ -23,7 +23,7 @@ export class NoteDetails extends Component {
       .then(response => this.setState({note: response.data, isLoading: false}))
       .catch(response => {
         console.log(response);
-        this.setState({isLoading: false})
+        this.setState({isLoading: false});
       });
   }
 
@@ -36,7 +36,7 @@ export class NoteDetails extends Component {
   };
 
   deleteNote = (id) => {
-    if(id) {
+    if (id) {
       this.setState({isLoading: true});
 
       axios.delete(`/notes/${id}.json`)
@@ -63,7 +63,7 @@ export class NoteDetails extends Component {
 
     axios.put(`/notes/${id}.json`, updatedNote)
       .then(response => console.log(response.data))
-      .catch(response => console.log(response.data))
+      .catch(response => console.log(response.data));
 
     this.setState({isLoading: false});
 
@@ -72,9 +72,9 @@ export class NoteDetails extends Component {
 
   render() {
     let noteDetails = <p className="pull-down">No note found.</p>;
-    let page = <Spinner />;
+    let page = <Spinner/>;
 
-    if(this.state.note) {
+    if (this.state.note) {
       noteDetails = (
         <section className="pull-down">
           <DeleteNote
@@ -101,7 +101,7 @@ export class NoteDetails extends Component {
       );
     }
 
-    if(!this.state.isLoading) {
+    if (!this.state.isLoading) {
       page = noteDetails;
     }
 
