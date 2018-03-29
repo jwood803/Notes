@@ -4,7 +4,7 @@ import Spinner from "../../UI/Spinner/Spinner";
 import DeleteNote from "../Modals/DeleteNote/DeleteNote";
 import {Button} from "react-bootstrap";
 import {EditNote} from "../Modals/EditNote/EditNote";
-import {editNote} from "../../store/actions/notesAction";
+import {deleteNote, editNote} from "../../store/actions/notesAction";
 import {connect} from "react-redux";
 
 class NoteDetails extends Component {
@@ -41,12 +41,7 @@ class NoteDetails extends Component {
     if (id) {
       this.setState({isLoading: true});
 
-      axios.delete(`/notes/${id}.json`)
-        .then(response => {
-          console.log(response);
-          this.setState({isLoading: false});
-        })
-        .catch(_ => this.setState({isLoading: false}));
+      this.props.onDeleteNote(id);
 
       this.hideModal();
 
@@ -115,7 +110,8 @@ class NoteDetails extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onEditNote: (id, note) => dispatch(editNote(id, note))
+    onEditNote: (id, note) => dispatch(editNote(id, note)),
+    onDeleteNote: id => dispatch(deleteNote(id))
   }
 };
 

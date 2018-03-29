@@ -29,6 +29,11 @@ const noteReducer = (state = initialState, action) => {
         ...state,
         error: false
       };
+    case actionTypes.DELETE_NOTE:
+      return {
+        ...state,
+        error: false
+      };
 
     default:
       return state;

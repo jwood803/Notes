@@ -27,6 +27,12 @@ const updateNote = () => {
   }
 };
 
+const deleteNoteById = () => {
+  return {
+    type: DELETE_NOTE
+  }
+};
+
 export const getNotes = () => {
   return dispatch => {
     axios.get("/notes.json")
@@ -62,6 +68,14 @@ export const editNote = (id, note) => {
     axios.put(`/notes/${id}.json`, note)
       .then(() => dispatch(updateNote()))
       .catch(() => dispatch(notesFailed()));
+  }
+};
+
+export const deleteNote = id => {
+  return dispatch => {
+    axios.delete(`/notes/${id}.json`)
+      .then(response => dispatch(deleteNoteById(id)))
+      .catch(_ => dispatch(notesFailed()));
   }
 };
 
