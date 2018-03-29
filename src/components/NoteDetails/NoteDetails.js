@@ -8,8 +8,6 @@ import {connect} from "react-redux";
 
 class NoteDetails extends Component {
   state = {
-    note: null,
-    isLoading: false,
     showDeleteNoteModal: false,
     showEditNoteModal: false,
     id: null
@@ -31,8 +29,6 @@ class NoteDetails extends Component {
 
   deleteNote = (id) => {
     if (id) {
-      this.setState({isLoading: true});
-
       this.props.onDeleteNote(id);
 
       this.hideModal();
@@ -48,11 +44,7 @@ class NoteDetails extends Component {
   updateNote = updatedNote => {
     const id = this.state.id;
 
-    this.setState({isLoading: true});
-
     this.props.onEditNote(id, updatedNote);
-
-    this.setState({isLoading: false});
 
     this.hideModal();
   };
@@ -88,7 +80,7 @@ class NoteDetails extends Component {
       );
     }
 
-    if (!this.state.isLoading) {
+    if (!this.props.isLoading) {
       page = noteDetails;
     }
 
@@ -102,7 +94,8 @@ class NoteDetails extends Component {
 
 const mapStateToProps = state => {
   return {
-    note: state.noteDetails
+    note: state.noteDetails,
+    isLoading: state.isLoading
   }
 };
 
