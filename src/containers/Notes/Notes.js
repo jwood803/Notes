@@ -17,14 +17,11 @@ class Notes extends Component {
 
   state = {
     showAddNoteModal: false,
-    isLoading: false
   };
 
   addNewNote = (note) => {
     const updatedNotes = this.props.notes.slice();
     updatedNotes.push({...note});
-
-    this.setState({isLoading: true});
 
     this.props.onAddNewNote(note);
 
@@ -59,7 +56,7 @@ class Notes extends Component {
       })
     }
 
-    if(!this.state.isLoading) {
+    if(!this.props.isLoading) {
       noteSummary = (
         <Grid>
           <Row className="show-grid">
@@ -82,7 +79,8 @@ class Notes extends Component {
 const mapStateToProps = state => {
   return {
     notes: state.notes,
-    error: state.error
+    error: state.error,
+    isLoading: state.isLoading
   }
 };
 

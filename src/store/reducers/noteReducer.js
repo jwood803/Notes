@@ -3,7 +3,8 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   notes: [],
   error: false,
-  note: null
+  note: null,
+  isLoading: false,
 };
 
 const noteReducer = (state = initialState, action) => {
@@ -12,7 +13,13 @@ const noteReducer = (state = initialState, action) => {
       return {
         ...state,
         notes: action.notes,
-        error: false
+        isLoading: false,
+        error: false,
+      };
+    case actionTypes.GET_NOTES_START:
+      return {
+        ...state,
+        isLoading: true,
       };
     case actionTypes.GET_NOTE_BY_ID:
       return {
@@ -23,7 +30,8 @@ const noteReducer = (state = initialState, action) => {
     case actionTypes.NOTES_FAILED:
       return {
         ...state,
-        error: true
+        error: true,
+        isLoading: false,
       };
     case actionTypes.ADD_NOTE:
       return {

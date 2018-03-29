@@ -4,7 +4,8 @@ import {
   NOTES_FAILED,
   ADD_NOTE,
   EDIT_NOTE,
-  DELETE_NOTE
+  DELETE_NOTE,
+  GET_NOTES_START
 } from "./actionTypes";
 import axios from "../../utils/axios-notes";
 
@@ -41,8 +42,16 @@ const getNoteFromId = noteDetails => {
   }
 };
 
+const getNotesStart = () => {
+  return {
+    type: GET_NOTES_START
+  }
+};
+
 export const getNotes = () => {
   return dispatch => {
+    dispatch(getNotesStart());
+
     axios.get("/notes.json")
       .then(response => {
         let values = Object.values(response.data);
