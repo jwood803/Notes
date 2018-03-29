@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Layout from "./components/Layout/Layout";
 import Notes from "./containers/Notes/Notes";
-import {NoteDetails} from "./components/NoteDetails/NoteDetails";
+import NoteDetails from "./components/NoteDetails/NoteDetails";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 class App extends Component {

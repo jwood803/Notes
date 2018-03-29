@@ -13,10 +13,21 @@ const noteReducer = (state = initialState, action) => {
         notes: action.notes,
         error: false
       };
-    case actionTypes.GET_NOTES_FAILED:
+    case actionTypes.NOTES_FAILED:
       return {
         ...state,
         error: true
+      };
+    case actionTypes.ADD_NOTE:
+      return {
+        ...state,
+        newNote: action.newNote,
+        error: false
+      };
+    case actionTypes.EDIT_NOTE:
+      return {
+        ...state,
+        error: false
       };
 
     default:

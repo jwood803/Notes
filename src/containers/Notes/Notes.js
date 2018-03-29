@@ -3,10 +3,12 @@ import Note from "../../components/Note/Note";
 import {AddNote} from "../../components/Modals/AddNote/AddNote";
 import {Grid, Row, Col, Button} from "react-bootstrap";
 import "./NotesPage.css";
-import axios from "../../utils/axios-notes";
 import Spinner from "../../UI/Spinner/Spinner";
 import {connect} from "react-redux";
-import {getNotes} from "../../store/actions/notes";
+import {
+  getNotes,
+  addNote
+} from "../../store/actions/notesAction";
 
 class Notes extends Component {
   componentDidMount() {
@@ -19,24 +21,12 @@ class Notes extends Component {
   };
 
   addNewNote = (note) => {
-    const notes = {
-      title: note.title,
-      details: note.details,
-      rating: note.rating
-    };
+    const updatedNotes = this.props.notes.slice();
+    updatedNotes.push({...note});
 
-    const updatedNotes = this.state.notes.slice();
-    updatedNotes.push({...notes});
+    this.setState({isLoading: true});
 
-    this.setState({isLoading: true, notes: updatedNotes});
-
-    axios.post("/notes.json", notes)
-      .then(_ => this.setState({isLoading: false, })) // Add new note to state
-      .catch(response => {
-        console.log(response);
-
-        this.setState({isLoading: false})
-      });
+    this.props.onAddNewNote(note);
 
     this.hideModal();
   };
@@ -98,7 +88,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetNotes: () => dispatch(getNotes())
+    onGetNotes: () => dispatch(getNotes()),
+    onAddNewNote: note => dispatch(addNote(note))
   }
 };
 

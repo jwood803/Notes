@@ -4,8 +4,10 @@ import Spinner from "../../UI/Spinner/Spinner";
 import DeleteNote from "../Modals/DeleteNote/DeleteNote";
 import {Button} from "react-bootstrap";
 import {EditNote} from "../Modals/EditNote/EditNote";
+import {editNote} from "../../store/actions/notesAction";
+import {connect} from "react-redux";
 
-export class NoteDetails extends Component {
+class NoteDetails extends Component {
   state = {
     note: null,
     isLoading: false,
@@ -61,9 +63,7 @@ export class NoteDetails extends Component {
 
     this.setState({isLoading: true});
 
-    axios.put(`/notes/${id}.json`, updatedNote)
-      .then(response => console.log(response.data))
-      .catch(response => console.log(response.data));
+    this.props.onEditNote(id, updatedNote);
 
     this.setState({isLoading: false});
 
@@ -112,3 +112,11 @@ export class NoteDetails extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onEditNote: (id, note) => dispatch(editNote(id, note))
+  }
+};
+
+export default connect(null, mapDispatchToProps)(NoteDetails)
