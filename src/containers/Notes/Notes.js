@@ -6,29 +6,11 @@ import "./NotesPage.css";
 import axios from "../../utils/axios-notes";
 import Spinner from "../../UI/Spinner/Spinner";
 import {connect} from "react-redux";
+import {getNotes} from "../../store/actions/notes";
 
 class Notes extends Component {
   componentDidMount() {
-    this.setState({isLoading: true});
-
-    axios.get("/notes.json")
-      .then(response => {
-        let values = Object.values(response.data);
-        let keys = Object.keys(response.data);
-
-        keys.forEach((key, idx) => {
-          values[idx] = {
-            ...values[idx],
-            id: key
-          }
-        });
-
-        this.setState({isLoading: false});
-      })
-      .catch(response => {
-        console.log(response);
-        this.setState({isLoading: false});
-      });
+    this.props.onGetNotes();
   }
 
   state = {
@@ -109,12 +91,15 @@ class Notes extends Component {
 
 const mapStateToProps = state => {
   return {
-    notes: state.notes
+    notes: state.notes,
+    error: state.error
   }
 };
 
 const mapDispatchToProps = dispatch => {
-
+  return {
+    onGetNotes: () => dispatch(getNotes())
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notes)

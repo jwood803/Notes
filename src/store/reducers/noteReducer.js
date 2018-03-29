@@ -1,7 +1,8 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-  notes: []
+  notes: [],
+  error: false
 };
 
 const noteReducer = (state = initialState, action) => {
@@ -9,7 +10,13 @@ const noteReducer = (state = initialState, action) => {
     case actionTypes.GET_NOTES:
       return {
         ...state,
-        notes: state.notes.concat(action.notes)
+        notes: action.notes,
+        error: false
+      };
+    case actionTypes.GET_NOTES_FAILED:
+      return {
+        ...state,
+        error: true
       };
 
     default:
