@@ -12,7 +12,7 @@ React items used:
 - [x] Routing
 - [x] Forms
   - [ ] Form validation
-- [ ] Redux
+- [x] Redux
 - [ ] Authentication
 - [ ] Tests
 - [ ] Deployment
