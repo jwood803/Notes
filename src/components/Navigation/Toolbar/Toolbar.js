@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Navbar, NavItem, Nav, Image} from "react-bootstrap";
+import {LinkContainer} from "react-router-bootstrap";
 import NotesLogo from "../../../assets/logo.png";
 
 class Toolbar extends Component {
@@ -12,17 +13,23 @@ class Toolbar extends Component {
           </Navbar.Brand>
         </Navbar.Header>
         <Nav>
-          <NavItem eventKey={1} href="/">
-            Home
-          </NavItem>
+          <LinkContainer to="/">
+            <NavItem eventKey={1}>
+              Home
+            </NavItem>
+          </LinkContainer>
         </Nav>
         <Nav pullRight>
-          <NavItem eventKey={2} href="/">
-            Favorites
-          </NavItem>
-          <NavItem eventKey={3} href="/">
-            Profile
-          </NavItem>
+          <LinkContainer to="/">
+            <NavItem eventKey={2}>
+              Favorites
+            </NavItem>
+          </LinkContainer>
+          <LinkContainer to="/">
+            <NavItem eventKey={3}>
+              Profile
+            </NavItem>
+          </LinkContainer>
         </Nav>
       </Navbar>
     );
