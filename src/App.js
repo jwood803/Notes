@@ -4,6 +4,7 @@ import Layout from "./components/Layout/Layout";
 import Notes from "./containers/Notes/Notes";
 import NoteDetails from "./components/NoteDetails/NoteDetails";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
+import Authentication from "./containers/Authentication/Authentication";
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
             <Switch>
               <Route path="/" exact component={Notes}/>
               <Route path="/notes/:id" exact component={NoteDetails} />
+              <Route path="/signup" exact component={Authentication} />
             </Switch>
           </Layout>
         </div>

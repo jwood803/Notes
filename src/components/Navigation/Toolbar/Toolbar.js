@@ -20,12 +20,14 @@ class Toolbar extends Component {
           </LinkContainer>
         </Nav>
         <Nav pullRight>
-          <LinkContainer to="/">
+          <LinkContainer to="/signup">
             <NavItem eventKey={2}>
-              Favorites
+              Sign Up
             </NavItem>
           </LinkContainer>
-          <LinkContainer to="/">
+        </Nav>
+        <Nav pullRight>
+          <LinkContainer to="/profile">
             <NavItem eventKey={3}>
               Profile
             </NavItem>

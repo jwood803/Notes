@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from "react";
 import {connect} from "react-redux";
 import {Button, ControlLabel, Form, FormControl, FormGroup} from "react-bootstrap";
+import "../../App.css";
 
 class Authentication extends Component {
   state = {
@@ -14,7 +15,7 @@ class Authentication extends Component {
   render() {
     return (
       <Fragment>
-        <Form>
+        <Form inline className="pull-down">
           <FormGroup controlId="username">
             <ControlLabel>Username</ControlLabel>
             <FormControl
