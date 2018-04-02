@@ -14,10 +14,11 @@ const authenticationStart = () => {
   }
 };
 
-const getAuthentication = authDetails => {
+const getAuthentication = (tokenId, userId) => {
   return {
     type: AUTHENTICATION_SUCCESS,
-    authDetails,
+    token: tokenId,
+    userId: userId
   }
 };
 
@@ -44,14 +45,14 @@ export const authenticationSuccess = (username, password, isSignUp) => {
 
     axios.post(BASE_URL, userInfo)
       .then(response => {
-        dispatch(getAuthentication(response.data));
+        dispatch(getAuthentication(response.data.idToken, response.data.localId));
 
         console.log(response.data);
       })
       .catch(error => {
         console.log(error.response);
 
-        dispatch(authenticationFailed(error))
+        dispatch(authenticationFailed(error.response))
       });
   }
 };

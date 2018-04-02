@@ -58,10 +58,16 @@ class Authentication extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    authData: state.auth.authData
+  }
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     signUpUser: (username, password, isSignUp) => dispatch(authenticationSuccess(username, password, isSignUp))
   }
 };
 
-export default connect(null, mapDispatchToProps)(Authentication);
+export default connect(mapStateToProps, mapDispatchToProps)(Authentication);

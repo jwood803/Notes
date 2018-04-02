@@ -78,9 +78,9 @@ class Notes extends Component {
 
 const mapStateToProps = state => {
   return {
-    notes: state.notes,
-    error: state.error,
-    isLoading: state.isLoading
+    notes: state.notes.notes,
+    error: state.notes.error,
+    isLoading: state.notes.isLoading
   }
 };
 
