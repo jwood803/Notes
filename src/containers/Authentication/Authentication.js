@@ -41,13 +41,13 @@ class Authentication extends Component {
           <Row>
             <Button
               bsStyle="primary"
-              className="align-button"
+              className="align"
               onClick={e => this.onAuthSubmit(e, true)}>
               Sign Up
             </Button>
             <Button
               bsStyle="primary"
-              className="align-button"
+              className="align"
               onClick={e => this.onAuthSubmit(e, false)}>
               Sign In
             </Button>

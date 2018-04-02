@@ -1,7 +1,8 @@
 import {
   AUTHENTICATION_START,
   AUTHENTICATION_SUCCESS,
-  AUTHENTICATION_ERROR
+  AUTHENTICATION_ERROR,
+  AUTHENTICATION_LOGOUT
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -30,6 +31,10 @@ const authenticationReducer = (state = initialState, action) => {
     case AUTHENTICATION_ERROR:
       return {
         error: action.error
+      };
+    case AUTHENTICATION_LOGOUT:
+      return {
+        token: null,
       };
     default:
       return state;

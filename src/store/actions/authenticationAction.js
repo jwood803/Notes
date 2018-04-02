@@ -1,7 +1,7 @@
 import {
   AUTHENTICATION_START,
   AUTHENTICATION_SUCCESS,
-  AUTHENTICATION_ERROR
+  AUTHENTICATION_ERROR, AUTHENTICATION_LOGOUT
 } from "./actionTypes";
 import axios from "axios";
 
@@ -26,6 +26,12 @@ const authenticationFailed = error => {
   return {
     type: AUTHENTICATION_ERROR,
     error
+  }
+};
+
+const authenticationLogout = () => {
+  return {
+    type: AUTHENTICATION_LOGOUT,
   }
 };
 
