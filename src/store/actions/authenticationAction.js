@@ -5,7 +5,8 @@ import {
 } from "./actionTypes";
 import axios from "axios";
 
-const BASE_URL = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${API_KEY}`;
+const API_KEY = "AIzaSyBhJE8p883RwdujD_JmGhIcT8EiuAeuFbE";
+let BASE_URL = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${API_KEY}`;
 
 const authenticationStart = () => {
   return {
@@ -27,7 +28,7 @@ const authenticationFailed = error => {
   }
 };
 
-export const authenticationSuccess = (username, password) => {
+export const authenticationSuccess = (username, password, isSignUp) => {
   return dispatch => {
     dispatch(authenticationStart());
 
@@ -37,6 +38,10 @@ export const authenticationSuccess = (username, password) => {
       returnSecureToken: true
     };
 
+    if(!isSignUp) {
+      BASE_URL = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${API_KEY}`
+    }
+
     axios.post(BASE_URL, userInfo)
       .then(response => {
         dispatch(getAuthentication(response.data));
@@ -44,7 +49,7 @@ export const authenticationSuccess = (username, password) => {
         console.log(response.data);
       })
       .catch(error => {
-        console.log(error);
+        console.log(error.response);
 
         dispatch(authenticationFailed(error))
       });

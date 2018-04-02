@@ -1,7 +1,8 @@
 import React, {Component, Fragment} from "react";
 import {connect} from "react-redux";
-import {Button, ControlLabel, Form, FormControl, FormGroup} from "react-bootstrap";
+import {Button, ControlLabel, Form, FormControl, FormGroup, Row} from "react-bootstrap";
 import "../../App.css";
+import "./Authentication.css";
 import {authenticationSuccess} from "../../store/actions/authenticationAction";
 
 class Authentication extends Component {
@@ -13,16 +14,16 @@ class Authentication extends Component {
   userNameOnChange = e => this.setState({username: e.target.value});
   passwordOnChange = e => this.setState({password: e.target.value});
 
-  onAuthSubmit = event => {
+  onAuthSubmit = (event, isSignUp) => {
     event.preventDefault();
 
-    this.props.signUpUser(this.state.username, this.state.password);
+    this.props.signUpUser(this.state.username, this.state.password, isSignUp);
   };
 
   render() {
     return (
       <Fragment>
-        <Form inline className="pull-down" onSubmit={this.onAuthSubmit}>
+        <Form inline className="pull-down">
           <FormGroup controlId="username">
             <ControlLabel>Username</ControlLabel>
             <FormControl
@@ -37,25 +38,29 @@ class Authentication extends Component {
               placeholder="Enter password"
               onChange={this.passwordOnChange} />
           </FormGroup>
-          <Button bsStyle="primary" type="submit">
-            Sign in
-          </Button>
+          <Row>
+            <Button
+              bsStyle="primary"
+              className="align-button"
+              onClick={e => this.onAuthSubmit(e, true)}>
+              Sign Up
+            </Button>
+            <Button
+              bsStyle="primary"
+              className="align-button"
+              onClick={e => this.onAuthSubmit(e, false)}>
+              Sign In
+            </Button>
+          </Row>
         </Form>
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    username: state.username,
-    password: state.password
-  }
-};
-
 const mapDispatchToProps = dispatch => {
   return {
-    signUpUser: (username, password) => dispatch(authenticationSuccess(username, password))
+    signUpUser: (username, password, isSignUp) => dispatch(authenticationSuccess(username, password, isSignUp))
   }
 };
 
