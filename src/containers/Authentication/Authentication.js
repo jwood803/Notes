@@ -18,6 +18,10 @@ class Authentication extends Component {
     event.preventDefault();
 
     this.props.signUpUser(this.state.username, this.state.password, isSignUp);
+
+    setTimeout(() => {
+      this.props.history.push("/");
+    }, 500);
   };
 
   render() {

@@ -43,6 +43,7 @@ const noteReducer = (state = initialState, action) => {
         ...state,
         error: true,
         isLoading: false,
+        notes: null,
       };
     case actionTypes.ADD_NOTE:
       return {

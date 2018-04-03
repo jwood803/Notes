@@ -40,7 +40,7 @@ class Notes extends Component {
   };
 
   render() {
-    let notes = this.props.notes.slice();
+    let notes = (this.props.notes || []).slice();
     let noteSummary = <Spinner />;
 
     if(notes.length === 0) {
