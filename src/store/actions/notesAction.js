@@ -5,7 +5,7 @@ import {
   ADD_NOTE,
   EDIT_NOTE,
   DELETE_NOTE,
-  LOADING_START
+  LOADING_START, ADD_NOTE_TO_STORE
 } from "./actionTypes";
 import axios from "../../utils/axios-notes";
 
@@ -109,6 +109,13 @@ export const getNoteById = (id, token) => {
     axios.get(`/notes/${id}.json?auth=${token}`)
       .then(response => dispatch(getNoteFromId(response.data)))
       .catch(() => dispatch(notesFailed()));
+  }
+};
+
+export const addNoteToStore = note => {
+  return {
+    type: ADD_NOTE_TO_STORE,
+    note
   }
 };
 

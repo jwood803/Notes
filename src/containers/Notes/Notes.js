@@ -7,7 +7,8 @@ import Spinner from "../../UI/Spinner/Spinner";
 import {connect} from "react-redux";
 import {
   getNotes,
-  addNote
+  addNote,
+  addNoteToStore
 } from "../../store/actions/notesAction";
 
 class Notes extends Component {
@@ -20,10 +21,8 @@ class Notes extends Component {
   };
 
   addNewNote = (note) => {
-    const updatedNotes = this.props.notes.slice();
-    updatedNotes.push({...note});
-
-    this.props.onAddNewNote(note);
+    this.props.onAddNewNote(note, this.props.token);
+    this.props.addNoteToNotes(note);
 
     this.hideModal();
   };
@@ -88,7 +87,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onGetNotes: token => dispatch(getNotes(token)),
-    onAddNewNote: note => dispatch(addNote(note))
+    onAddNewNote: (note, token) => dispatch(addNote(note, token)),
+    addNoteToNotes: note => dispatch(addNoteToStore(note)),
   }
 };
 

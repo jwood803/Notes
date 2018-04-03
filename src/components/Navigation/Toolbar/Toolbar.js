@@ -20,26 +20,26 @@ class Toolbar extends Component {
             </NavItem>
           </LinkContainer>
         </Nav>
-        <Nav pullRight>
-          {this.props.isAuthenticated ?
+        {this.props.isAuthenticated ?
+          <Nav pullRight>
             <LinkContainer to="/logout">
               <NavItem eventKey={2}>
                 Log Out
               </NavItem>
-            </LinkContainer>:
+            </LinkContainer>
+            <LinkContainer to="/profile">
+              <NavItem eventKey={3}>
+                Profile
+              </NavItem>
+            </LinkContainer>
+          </Nav> :
+          <Nav pullRight>
             <LinkContainer to="/signup">
               <NavItem eventKey={2}>
                 Sign Up
               </NavItem>
-            </LinkContainer> }
-        </Nav>
-        <Nav pullRight>
-          <LinkContainer to="/profile">
-            <NavItem eventKey={3}>
-              Profile
-            </NavItem>
-          </LinkContainer>
-        </Nav>
+            </LinkContainer>
+          </Nav> }
       </Navbar>
     );
   }

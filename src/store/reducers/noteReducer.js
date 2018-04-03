@@ -28,6 +28,16 @@ const noteReducer = (state = initialState, action) => {
         error: false,
         isLoading: false,
       };
+    case actionTypes.ADD_NOTE_TO_STORE:
+      const currentNotes = state.notes.slice();
+      const updatedNotes = currentNotes.concat(action.note);
+
+      return {
+        ...state,
+        error: false,
+        isLoading: false,
+        notes: updatedNotes
+      };
     case actionTypes.NOTES_FAILED:
       return {
         ...state,
