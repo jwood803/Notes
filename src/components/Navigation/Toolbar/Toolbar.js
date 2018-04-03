@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Navbar, NavItem, Nav, Image} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
 import NotesLogo from "../../../assets/logo.png";
+import {connect} from "react-redux";
 
 class Toolbar extends Component {
   render() {
@@ -20,11 +21,17 @@ class Toolbar extends Component {
           </LinkContainer>
         </Nav>
         <Nav pullRight>
-          <LinkContainer to="/signup">
-            <NavItem eventKey={2}>
-              Sign Up
-            </NavItem>
-          </LinkContainer>
+          {this.props.isAuthenticated ?
+            <LinkContainer to="/logout">
+              <NavItem eventKey={2}>
+                Log Out
+              </NavItem>
+            </LinkContainer>:
+            <LinkContainer to="/signup">
+              <NavItem eventKey={2}>
+                Sign Up
+              </NavItem>
+            </LinkContainer> }
         </Nav>
         <Nav pullRight>
           <LinkContainer to="/profile">
@@ -38,4 +45,10 @@ class Toolbar extends Component {
   }
 }
 
-export default Toolbar;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.token !== null
+  }
+};
+
+export default connect(mapStateToProps)(Toolbar);
