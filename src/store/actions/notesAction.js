@@ -72,41 +72,41 @@ export const getNotes = token => {
   }
 };
 
-export const addNote = note => {
+export const addNote = (note, token) => {
   return dispatch => {
     dispatch(loadingStart());
 
-    axios.post("/notes.json", note)
+    axios.post(`/notes.json?auth=${token}`, note)
       .then(() => dispatch(setNewNote(note)))
       .catch(() => dispatch(notesFailed()));
   }
 };
 
-export const editNote = (id, note) => {
+export const editNote = (id, note, token) => {
   return dispatch => {
     dispatch(loadingStart());
 
-    axios.put(`/notes/${id}.json`, note)
+    axios.put(`/notes/${id}.json?auth=${token}`, note)
       .then(() => dispatch(updateNote()))
       .catch(() => dispatch(notesFailed()));
   }
 };
 
-export const deleteNote = id => {
+export const deleteNote = (id, token) => {
   return dispatch => {
     dispatch(loadingStart());
 
-    axios.delete(`/notes/${id}.json`)
+    axios.delete(`/notes/${id}.json?auth=${token}`)
       .then(() => dispatch(deleteNoteById(id)))
       .catch(() => dispatch(notesFailed()));
   }
 };
 
-export const getNoteById = id => {
+export const getNoteById = (id, token) => {
   return dispatch => {
     dispatch(loadingStart());
 
-    axios.get(`/notes/${id}.json`)
+    axios.get(`/notes/${id}.json?auth=${token}`)
       .then(response => dispatch(getNoteFromId(response.data)))
       .catch(() => dispatch(notesFailed()));
   }

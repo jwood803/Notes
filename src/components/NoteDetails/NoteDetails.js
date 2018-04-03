@@ -16,7 +16,7 @@ class NoteDetails extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
 
-    this.props.onGetNoteDetails(id);
+    this.props.onGetNoteDetails(id, this.props.token);
   }
 
   showDeleteModal = () => {
@@ -29,7 +29,7 @@ class NoteDetails extends Component {
 
   deleteNote = (id) => {
     if (id) {
-      this.props.onDeleteNote(id);
+      this.props.onDeleteNote(id, this.props.token);
 
       this.hideModal();
 
@@ -44,7 +44,7 @@ class NoteDetails extends Component {
   updateNote = updatedNote => {
     const id = this.state.id;
 
-    this.props.onEditNote(id, updatedNote);
+    this.props.onEditNote(id, updatedNote, this.props.token);
 
     this.hideModal();
   };
@@ -95,15 +95,16 @@ class NoteDetails extends Component {
 const mapStateToProps = state => {
   return {
     note: state.notes.noteDetails,
-    isLoading: state.notes.isLoading
+    isLoading: state.notes.isLoading,
+    token: state.auth.token
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onEditNote: (id, note) => dispatch(editNote(id, note)),
-    onDeleteNote: id => dispatch(deleteNote(id)),
-    onGetNoteDetails: id => dispatch(getNoteById(id)),
+    onEditNote: (id, note, token) => dispatch(editNote(id, note, token)),
+    onDeleteNote: (id, token) => dispatch(deleteNote(id, token)),
+    onGetNoteDetails: (id, token) => dispatch(getNoteById(id, token)),
   }
 };
 
