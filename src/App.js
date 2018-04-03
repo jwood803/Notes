@@ -5,6 +5,7 @@ import Notes from "./containers/Notes/Notes";
 import NoteDetails from "./components/NoteDetails/NoteDetails";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Authentication from "./containers/Authentication/Authentication";
+import Logout from "./containers/Authentication/Logout/Logout";
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
             <Switch>
               <Route path="/notes/:id" exact component={NoteDetails} />
               <Route path="/signup" exact component={Authentication} />
+              <Route path="/logout" exact component={Logout} />
               <Route path="/" exact component={Notes}/>
             </Switch>
           </Layout>

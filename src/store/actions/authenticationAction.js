@@ -29,7 +29,7 @@ const authenticationFailed = error => {
   }
 };
 
-const authenticationLogout = () => {
+export const authenticationLogout = () => {
   return {
     type: AUTHENTICATION_LOGOUT,
   }
