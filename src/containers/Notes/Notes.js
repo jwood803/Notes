@@ -12,7 +12,7 @@ import {
 
 class Notes extends Component {
   componentDidMount() {
-    this.props.onGetNotes();
+    this.props.onGetNotes(this.props.token);
   }
 
   state = {
@@ -80,13 +80,14 @@ const mapStateToProps = state => {
   return {
     notes: state.notes.notes,
     error: state.notes.error,
-    isLoading: state.notes.isLoading
+    isLoading: state.notes.isLoading,
+    token: state.auth.token
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetNotes: () => dispatch(getNotes()),
+    onGetNotes: token => dispatch(getNotes(token)),
     onAddNewNote: note => dispatch(addNote(note))
   }
 };

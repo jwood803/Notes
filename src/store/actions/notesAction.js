@@ -48,11 +48,11 @@ const loadingStart = () => {
   }
 };
 
-export const getNotes = () => {
+export const getNotes = token => {
   return dispatch => {
     dispatch(loadingStart());
 
-    axios.get("/notes.json")
+    axios.get(`/notes.json?auth=${token}`)
       .then(response => {
         let values = Object.values(response.data);
         let keys = Object.keys(response.data);

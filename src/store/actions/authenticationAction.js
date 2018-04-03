@@ -35,6 +35,14 @@ const authenticationLogout = () => {
   }
 };
 
+export const checkTimeout = expirationTime => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(authenticationLogout());
+    }, expirationTime * 1000);
+  }
+};
+
 export const authenticationSuccess = (username, password, isSignUp) => {
   return dispatch => {
     dispatch(authenticationStart());
@@ -54,6 +62,8 @@ export const authenticationSuccess = (username, password, isSignUp) => {
         dispatch(getAuthentication(response.data.idToken, response.data.localId));
 
         console.log(response.data);
+
+        dispatch(checkTimeout(response.data.expiresIn))
       })
       .catch(error => {
         console.log(error.response);
